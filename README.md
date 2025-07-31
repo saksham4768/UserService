@@ -12,7 +12,6 @@ This project is a secure user management microservice built with **Spring Boot**
 - User registration and login
 - Generate JWT token on successful authentication
 - Role-based authorization (`USER`, `ADMIN`)
-- Secure endpoints using `@PreAuthorize`
 - Token filter and custom user details service
 - Stateless session using JWT
 
@@ -22,10 +21,8 @@ This project is a secure user management microservice built with **Spring Boot**
 - Spring Boot
 - Spring Security
 - JWT (io.jsonwebtoken.JJWT)
-- H2 / MySQL (switchable)
+- H2 / Postgresql (switchable)
 - JPA/Hibernate
 - Lombok
 - Maven
-
-## 📂 Project Structure
 
