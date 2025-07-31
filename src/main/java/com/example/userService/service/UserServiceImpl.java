@@ -52,12 +52,11 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByEmail(userData.email)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid Email"));
 
-        System.out.println("User is -> " + user);
         if(!passwordEncoder.matches(userData.password, user.getPassword())){
             throw new BadCredentialsException("Invalid Password");
         }
 
-        String token = jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
         AuthResponse authResponse = new AuthResponse();
         authResponse.token = token;
         authResponse.username = user.getUsername();
