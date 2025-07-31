@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByEmail(userData.email)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid Email"));
 
+        System.out.println("User is -> " + user);
         if(!passwordEncoder.matches(userData.password, user.getPassword())){
             throw new BadCredentialsException("Invalid Password");
         }
