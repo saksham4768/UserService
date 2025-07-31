@@ -5,12 +5,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "eW91cl9zZWNyZXR5b3VyX3NlY3JldHlvdXJfc2VjcmV0eW91cl9zZWNyZXQ=";
-
+    private final String ENCODED_SECRET_KEY = "eW91cl9zZWNyZXR5b3VyX3NlY3JldHlvdXJfc2VjcmV0eW91cl9zZWNyZXQ=";
+    private final byte[] SECRET_KEY = Base64.getDecoder().decode(ENCODED_SECRET_KEY);
     //header + payload + signature = JWT
     //signature = HMAC_SHA256(
     //    "<headerBase64>.<payloadBase64>",
@@ -29,7 +30,7 @@ public class JwtUtil {
     public String extractUsername(String token){
         System.out.println("🔍 Token passed for parsing: " + token);
         return Jwts.parserBuilder()//	Creates a JWT parser
-                .setSigningKey(SECRET_KEY.getBytes()) // //// ✅ token is verified, parsed, claims extracted // If secret key is wrong, it should throw:io.jsonwebtoken.security.SignatureException
+                .setSigningKey(SECRET_KEY) // //// ✅ token is verified, parsed, claims extracted // If secret key is wrong, it should throw:io.jsonwebtoken.security.SignatureException
                 .build()
                 .parseClaimsJws(token)
                 .getBody()//Gets the payload (claims) it returns claims object and from claims you get the subject in claims having key value
